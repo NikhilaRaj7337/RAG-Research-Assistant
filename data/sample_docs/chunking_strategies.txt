@@ -1,0 +1,29 @@
+Chunking Strategies for RAG Systems
+
+Chunking is the process of splitting long documents into smaller pieces
+before embedding them. The chunking strategy has a large effect on
+retrieval quality.
+
+Fixed-size chunking splits text every N characters or tokens, optionally
+with overlap between consecutive chunks. It is simple and fast but can cut
+sentences or ideas in half.
+
+Recursive character splitting tries a sequence of separators (paragraph
+breaks, then line breaks, then sentence breaks, then spaces) and only falls
+back to a harder split when a piece is still too large. This tends to keep
+semantically related text together more often than naive fixed-size
+splitting.
+
+Semantic chunking groups sentences or paragraphs based on topical
+similarity rather than a fixed character count, producing chunks that are
+more internally coherent, which tends to improve retrieval precision at
+the cost of extra preprocessing time.
+
+Overlap between chunks (for example, 100-200 characters) helps preserve
+context that spans a chunk boundary, which reduces cases where an answer is
+split across two poorly-connected chunks.
+
+Choosing chunk size involves a tradeoff: smaller chunks give more precise
+retrieval (less irrelevant text per chunk) but may lose surrounding
+context; larger chunks preserve context but dilute the embedding with
+unrelated content, which can lower retrieval precision.

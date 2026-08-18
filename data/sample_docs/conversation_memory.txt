@@ -1,0 +1,25 @@
+Conversation Memory in Multi-Turn RAG Assistants
+
+A single-turn RAG system treats every question independently, which breaks
+down as soon as a user asks a follow-up like "what about the second one?"
+or "can you explain that in more detail?" -- the retriever has no idea what
+"that" refers to.
+
+Multi-turn RAG assistants solve this with a history-aware retriever: before
+running retrieval, the system uses the LLM to rewrite the latest user
+message into a standalone question, using the prior conversation turns for
+context. For example, "what about the second one?" might be rewritten to
+"what is semantic chunking?" if the previous turn discussed multiple
+chunking strategies.
+
+Conversation memory can be implemented in several ways: keeping the full
+raw transcript (simple but expensive as the conversation grows), keeping a
+sliding window of the last N turns, or summarizing older turns into a
+running summary to keep the prompt short while still preserving long-range
+context.
+
+Maximal Marginal Relevance (MMR) is often used alongside conversation
+memory during retrieval: after the standalone question is retrieved
+against, MMR re-ranks candidate chunks to balance relevance to the query
+with diversity among the chunks, so the model doesn't receive five near-
+duplicate chunks that all say the same thing.

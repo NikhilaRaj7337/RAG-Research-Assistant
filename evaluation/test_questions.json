@@ -1,0 +1,22 @@
+[
+  {
+    "question": "What is retrieval-augmented generation?",
+    "reference_answer": "RAG is a technique that retrieves relevant documents from an external knowledge source and passes them to an LLM as context so it can generate grounded answers instead of relying only on its parametric memory."
+  },
+  {
+    "question": "Why does chunk size affect retrieval quality?",
+    "reference_answer": "Chunk size controls the granularity of retrieved context: chunks that are too large dilute relevance with unrelated text, while chunks that are too small lose surrounding context, so tuning chunk size and overlap improves retrieval precision."
+  },
+  {
+    "question": "What is the difference between similarity search and MMR search?",
+    "reference_answer": "Similarity search returns the top-k chunks closest to the query embedding, which can return redundant chunks, while MMR (Maximal Marginal Relevance) balances relevance and diversity to reduce redundancy in retrieved context."
+  },
+  {
+    "question": "How does conversation memory help a RAG chatbot?",
+    "reference_answer": "Conversation memory lets the assistant resolve follow-up questions and pronouns by referring to prior turns, so it can rewrite a vague follow-up into a standalone, context-complete query before retrieval."
+  },
+  {
+    "question": "What causes hallucination in RAG systems and how can it be reduced?",
+    "reference_answer": "Hallucination happens when the model answers from its own parametric knowledge instead of the retrieved context, especially when retrieval misses relevant chunks; it can be reduced with better chunking, stricter grounding prompts, and instructing the model to say it doesn't know when context is insufficient."
+  }
+]

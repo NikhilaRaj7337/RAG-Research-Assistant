@@ -222,19 +222,3 @@ research_assistant/
 └── data/sample_docs/              # Example knowledge base
 ```
 
-## Talking points for an interview
-
-- **Why RRF over a weighted score blend:** BM25 and cosine similarity
-  scores aren't on comparable scales; fusing on rank avoids needing to
-  calibrate a blend weight per corpus.
-- **Why Qdrant over FAISS:** FAISS is a library with no server, no
-  persistence across process restarts by default, and no cloud-hosted
-  option — Qdrant is an actual database you can deploy independently of
-  the app.
-- **Why separate the API from the UI:** lets each scale/deploy
-  independently, and is the only way to put the UI on Streamlit Cloud
-  while keeping a real backend.
-- **What I'd add next:** cross-encoder reranking on top of the RRF-fused
-  candidates (cheap accuracy win before the LLM ever sees the context),
-  and query classification to skip hybrid search entirely for queries that
-  are clearly keyword lookups vs. semantic questions.

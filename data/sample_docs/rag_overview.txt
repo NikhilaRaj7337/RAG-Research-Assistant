@@ -1,0 +1,29 @@
+Retrieval-Augmented Generation (RAG)
+
+Retrieval-Augmented Generation is a technique that combines a retrieval system
+with a language model. Instead of relying solely on knowledge encoded in the
+model's parameters, the system first retrieves relevant passages from an
+external knowledge source, then conditions the language model's generation on
+that retrieved context.
+
+A typical RAG pipeline has three stages: ingestion, retrieval, and generation.
+During ingestion, source documents are split into chunks, embedded into vector
+representations, and stored in a vector database such as FAISS, Pinecone, or
+Chroma. During retrieval, the user's query is embedded and compared against
+the stored vectors using a similarity metric such as cosine similarity, and
+the top-k most similar chunks are returned. During generation, those chunks
+are inserted into the prompt as context, and the language model produces an
+answer grounded in that context.
+
+RAG reduces hallucination compared to a model answering from parametric
+memory alone, because the model is instructed to answer only from the
+retrieved context rather than from potentially outdated or incorrect internal
+knowledge. It also allows the knowledge base to be updated without retraining
+the model, since new documents can simply be re-ingested into the vector
+store.
+
+Common failure modes in RAG systems include: retrieving irrelevant chunks
+because of poor chunking boundaries, missing context because relevant
+information is split across two chunks, and the model still hallucinating
+despite having correct context because the prompt does not sufficiently
+constrain it.

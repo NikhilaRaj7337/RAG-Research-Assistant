@@ -1,0 +1,26 @@
+Chunking Strategies for Retrieval Systems
+
+The way source documents are split into chunks has a large effect on
+retrieval quality. Three common strategies are fixed-size recursive
+splitting, token-based splitting, and semantic splitting.
+
+Recursive character splitting divides text using a prioritized list of
+separators, such as paragraph breaks, then sentence breaks, then spaces,
+until each chunk fits under a target character count. This tends to
+preserve natural document structure like paragraphs, and is a reasonable
+default for most text.
+
+Token-based splitting divides text based on a fixed number of tokens as
+counted by the model's tokenizer, rather than characters. This is useful
+when the downstream language model has a strict context window and the
+chunk size needs to be predictable in token terms rather than approximate.
+
+Semantic splitting groups sentences together based on embedding similarity,
+starting a new chunk when the topic appears to shift. This can produce
+chunks that are more topically coherent than fixed-size splitting, at the
+cost of extra embedding calls during ingestion and more variable chunk
+sizes, which can complicate downstream context-window budgeting.
+
+Overlap between chunks, typically 10-20% of the chunk size, is commonly
+used to reduce the chance that a fact gets split across a chunk boundary
+and becomes unretrievable in either chunk alone.
